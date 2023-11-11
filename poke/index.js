@@ -11,8 +11,32 @@ import { RNSScreenStackHeaderConfig } from '@react-native-screens';
 const Stack = createNativeStackNavigator();
 
 function HomeScreen({ navigation }) {
-  return (
-    <View style={{ flex: 1, justifyContent: 'flex-start', alignItems: 'center',marginTop: 100 }}>
+  const [randomPokemon, setRandomPokemon] = useState(null); // Added useState
+  useEffect(() => {
+    const getRandomPokemon = async () => {
+      try {
+        const response = await axios.get('https://pokeapi.co/api/v2/pokemon');
+        const randomPokemonIndex = Math.floor(Math.random() * response.data.results.length);
+        const randomPokemonName = response.data.results[randomPokemonIndex].name;
+
+        // Fetch additional data for the random Pokemon to get the image URL
+        const pokemonResponse = await axios.get(`https://pokeapi.co/api/v2/pokemon/${randomPokemonName}`);
+        const pokemonData = pokemonResponse.data;
+
+        // Set the state with the image URL
+        setRandomPokemon({
+          name: randomPokemonName,
+          imageUrl: pokemonData.sprites.front_default,
+        });
+      } catch (error) {
+        console.error('Error fetching random Pokemon:', error);
+      }
+    };
+
+    getRandomPokemon();
+  }, []);
+    return (
+    <View style={{ flex: 1, justifyContent: 'flex-start', alignItems: 'center',backgroundColor: '#A1C084' }}>
        <Button
         title="TriviaBoard"
         onPress={() => navigation.navigate('TriviaScreen')}
@@ -33,14 +57,18 @@ function HomeScreen({ navigation }) {
         onPress={() => navigation.navigate('AboutScreen')}
         style={{ marginBottom: 40 }}
       />
-
+      {randomPokemon && (
+        <View>
+          <Image source={{ uri: randomPokemon.imageUrl }} style={styles.image} />
+        </View>
+      )}
      </View>
   );
 }
 function TriviaScreen() {
 
   return (
-    <View style={{ flex: 1, justifyContent: 'flex-start', alignItems: 'center' }}>
+        <View style={{ flex: 1, justifyContent: 'flex-start', alignItems: 'center',marginTop: 10,backgroundColor: '#A1C084'}}>
       <Text> Press</Text>
     </View>
   );
@@ -101,7 +129,7 @@ const getRandomPokemon = () => {
   };
 
   return (
-   <View style={{ flex: 1, justifyContent: 'flex-start', alignItems: 'center' }}>
+   <View style={{ flex: 1, justifyContent: 'flex-start', alignItems: 'center', backgroundColor:'#A1C084' }}>
       <Button title="Press for suprize" onPress={getRandomPokemon} />
       {pokemonData && (
         <View>
@@ -145,7 +173,11 @@ function AboutScreen() {
 function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="HomeScreen">
+      <Stack.Navigator initialRouteName="HomeScreen"screenOptions={{
+    headerStyle: {
+      backgroundColor: '#659157', // Set the background color here
+    },
+  }}>
         <Stack.Screen name="HomeScreen" component={HomeScreen} />
         <Stack.Screen name="AboutScreen" component={AboutScreen} />
         <Stack.Screen name="LeaderScreen" component={LeaderScreen} />
@@ -160,6 +192,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'center',
+    backgroundColor: '#A1C084', // Set the background color here
   },
   image: {
     width: 300,
@@ -167,5 +200,6 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
 });
+
 
 AppRegistry.registerComponent('poke', () => App);
