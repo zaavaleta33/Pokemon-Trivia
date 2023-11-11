@@ -13,29 +13,25 @@ const Stack = createNativeStackNavigator();
 function HomeScreen({ navigation }) {
   const [randomPokemon, setRandomPokemon] = useState(null); // Added useState
   useEffect(() => {
-    const getRandomPokemon = async () => {
-      try {
-        const response = await axios.get('https://pokeapi.co/api/v2/pokemon');
-        const randomPokemonIndex = Math.floor(Math.random() * response.data.results.length);
-        const randomPokemonName = response.data.results[randomPokemonIndex].name;
+  const getRandomPokemon = async () => {
+    try {
+      const randomPokemonId = Math.floor(Math.random() * 898) + 1; // There are 898 Pokémon in total
+      const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${randomPokemonId}`);
+      const pokemonData = response.data;
 
-        // Fetch additional data for the random Pokemon to get the image URL
-        const pokemonResponse = await axios.get(`https://pokeapi.co/api/v2/pokemon/${randomPokemonName}`);
-        const pokemonData = pokemonResponse.data;
+      setRandomPokemon({
+        name: pokemonData.name,
+        imageUrl: pokemonData.sprites.front_default,
+      });
+    } catch (error) {
+      console.error('Error fetching random Pokemon:', error);
+    }
+  };
 
-        // Set the state with the image URL
-        setRandomPokemon({
-          name: randomPokemonName,
-          imageUrl: pokemonData.sprites.front_default,
-        });
-      } catch (error) {
-        console.error('Error fetching random Pokemon:', error);
-      }
-    };
+  getRandomPokemon();
+}, []);
 
-    getRandomPokemon();
-  }, []);
-    return (
+     return (
     <View style={{ flex: 1, justifyContent: 'flex-start', alignItems: 'center',backgroundColor: '#A1C084' }}>
        <Button
         title="TriviaBoard"
@@ -68,8 +64,16 @@ function HomeScreen({ navigation }) {
 function TriviaScreen() {
 
   return (
-        <View style={{ flex: 1, justifyContent: 'flex-start', alignItems: 'center',marginTop: 10,backgroundColor: '#A1C084'}}>
-      <Text> Press</Text>
+     <View style={styles.container}>
+      <Image
+        source={require('/Users/alexanderzavaleta/Desktop/Code/Mob411/Pokemon-Trivia/poke/assets/mew.png')}
+        style={styles.imageLeft}
+      />
+      <Text style={styles.leaderboardText}>Trivia</Text>
+      <Image
+        source={require('/Users/alexanderzavaleta/Desktop/Code/Mob411/Pokemon-Trivia/poke/assets/mew.png')} 
+        style={styles.imageRight}
+      />
     </View>
   );
 }
@@ -147,14 +151,36 @@ const getRandomPokemon = () => {
     </View>
   );
 }
-
 function LeaderScreen() {
   return (
-    <View style={{ flex: 1, justifyContent: 'flex-start', alignItems: 'center' }}>
-      <Text> leaderBoard </Text>
+    <View style={styles.container}>
+      <Image
+        source={require('/Users/alexanderzavaleta/Desktop/Code/Mob411/Pokemon-Trivia/poke/assets/Poke-vin.png')}
+        style={styles.imageLeft}
+      />
+      <Text style={styles.leaderboardText}>Leaderboard</Text>
+      <Image
+        source={require('/Users/alexanderzavaleta/Desktop/Code/Mob411/Pokemon-Trivia/poke/assets/Poke-vin.png')} 
+        style={styles.imageRight}
+      />
     </View>
   );
 }
+
+/*function LeaderScreen() {
+  return (
+      <Image
+        source={require('/Users/alexanderzavaleta/Desktop/Code/Mob411/Pokemon-Trivia/poke/assets/Poke-vin.png')}
+        style={styles.imageLeft}
+      />
+      <Text style={styles.leaderboardText}>Leaderboard</Text>
+      <Image
+        source={require('/Users/alexanderzavaleta/Desktop/Code/Mob411/Pokemon-Trivia/poke/assets/Poke-vin.png')} 
+        style={styles.imageRight}
+      />
+    </View>
+  );
+}*/
 
 
 function AboutScreen() {
@@ -189,17 +215,36 @@ function App() {
 }
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'flex-start',
+    flexDirection: 'row',
+    justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#A1C084', // Set the background color here
+    backgroundColor: '#A1C084', 
+    padding: 16,
+  },
+ imageLeft: {
+    width: 100,
+    height: 100,
+    resizeMode: 'contain',
+    marginHorizontal: 8,
+    transform: [{ scaleX: -1 }],
+
+  },
+  leaderboardText: {
+    fontSize: 30,
+    marginHorizontal: 16,
+    marginHorizontal: 8,
   },
   image: {
     width: 300,
     height: 300,
     resizeMode: 'contain',
-  },
-});
+  }, 
+  imageRight: {
+    width: 100,
+    height: 100,
+    resizeMode: 'contain',
+    marginHorizontal: 8,
+  },});
 
 
 AppRegistry.registerComponent('poke', () => App);
