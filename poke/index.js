@@ -185,6 +185,7 @@ function AboutScreen() {
       <Text>A little about me, I like to create fun little games and projects</Text>
       <Text>I've been coding for about 3-4 years now</Text>
       <Text>and I love solving problems and building Mobil Apps</Text>
+      <Text>Excel sheet: https://docs.google.com/spreadsheets/d/1Sd1ymp9HTYJQKFcvzQmLoLeD_aLkb4EqfaDPFTgCG38/edit?usp=sharing </Text>
     </View>
   );
 }
