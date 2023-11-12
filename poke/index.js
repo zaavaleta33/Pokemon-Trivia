@@ -62,18 +62,20 @@ function HomeScreen({ navigation }) {
   );
 }
 function TriviaScreen() {
-
   return (
-     <View style={styles.container}>
-      <Image
-        source={require('/Users/alexanderzavaleta/Desktop/Code/Mob411/Pokemon-Trivia/poke/assets/mew.png')}
-        style={styles.imageLeft}
-      />
-      <Text style={styles.leaderboardText}>Trivia</Text>
-      <Image
-        source={require('/Users/alexanderzavaleta/Desktop/Code/Mob411/Pokemon-Trivia/poke/assets/mew.png')} 
-        style={styles.imageRight}
-      />
+    <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', backgroundColor: '#A1C084', paddingTop: 32 }}>
+      <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+        <Image
+          source={require('/Users/alexanderzavaleta/Desktop/Code/Mob411/Pokemon-Trivia/poke/assets/mew.png')}
+          style={styles.imageLeft}
+        />
+        <Text style={styles.leaderboardText}>Leaderboard</Text>
+        <Image
+          source={require('/Users/alexanderzavaleta/Desktop/Code/Mob411/Pokemon-Trivia/poke/assets/mew.png')}
+          style={styles.imageRight}
+        />
+      </View>
+      <View style={{ backgroundColor: '#yourBottomColor', height: 50, alignSelf: 'stretch' }}></View>
     </View>
   );
 }
@@ -153,41 +155,32 @@ const getRandomPokemon = () => {
 }
 function LeaderScreen() {
   return (
-    <View style={styles.container}>
-      <Image
-        source={require('/Users/alexanderzavaleta/Desktop/Code/Mob411/Pokemon-Trivia/poke/assets/Poke-vin.png')}
-        style={styles.imageLeft}
-      />
-      <Text style={styles.leaderboardText}>Leaderboard</Text>
-      <Image
-        source={require('/Users/alexanderzavaleta/Desktop/Code/Mob411/Pokemon-Trivia/poke/assets/Poke-vin.png')} 
-        style={styles.imageRight}
-      />
+    <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', backgroundColor: '#A1C084', paddingTop: 32 }}>
+      <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+        <Image
+          source={require('/Users/alexanderzavaleta/Desktop/Code/Mob411/Pokemon-Trivia/poke/assets/Poke-vin.png')}
+          style={styles.imageLeft}
+        />
+        <Text style={styles.leaderboardText}>Leaderboard</Text>
+        <Image
+          source={require('/Users/alexanderzavaleta/Desktop/Code/Mob411/Pokemon-Trivia/poke/assets/Poke-vin.png')}
+          style={styles.imageRight}
+        />
+      </View>
+      <View style={{ backgroundColor: '#yourBottomColor', height: 50, alignSelf: 'stretch' }}></View>
     </View>
   );
 }
 
-/*function LeaderScreen() {
-  return (
-      <Image
-        source={require('/Users/alexanderzavaleta/Desktop/Code/Mob411/Pokemon-Trivia/poke/assets/Poke-vin.png')}
-        style={styles.imageLeft}
-      />
-      <Text style={styles.leaderboardText}>Leaderboard</Text>
-      <Image
-        source={require('/Users/alexanderzavaleta/Desktop/Code/Mob411/Pokemon-Trivia/poke/assets/Poke-vin.png')} 
-        style={styles.imageRight}
-      />
-    </View>
-  );
-}*/
-
-
 function AboutScreen() {
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#659157'  }}>
       <Text>Hello, my name is</Text>
       <Text>Alexander Zavaleta</Text>
+      <Image
+        source={require('/Users/alexanderzavaleta/Desktop/Code/Mob411/Pokemon-Trivia/poke/assets/cram.png')}
+        style={styles.imagecram}
+      />
       <Text>I hope to be a software Engenieer in the future</Text>
       <Text>A little about me, I like to create fun little games and projects</Text>
       <Text>I've been coding for about 3-4 years now</Text>
@@ -230,7 +223,7 @@ const styles = StyleSheet.create({
 
   },
   leaderboardText: {
-    fontSize: 30,
+    fontSize: 20,
     marginHorizontal: 16,
     marginHorizontal: 8,
   },
@@ -239,6 +232,11 @@ const styles = StyleSheet.create({
     height: 300,
     resizeMode: 'contain',
   }, 
+  imagecram: {
+    width: 200,
+    height: 200,
+    resizeMode: 'contain',
+  },
   imageRight: {
     width: 100,
     height: 100,
