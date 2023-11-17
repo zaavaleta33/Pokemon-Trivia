@@ -36,15 +36,14 @@ const TriviaScreen = ({ navigation }) => {
   return (
     <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', backgroundColor: '#A1C084', paddingTop: 32 }}>
       <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-        <Image source={require('/Users/alexanderzavaleta/Desktop/Code/Mob411/Pokemon-Trivia/poke/assets/mew.png')} />
+        <Image source={require('/Users/alexanderzavaleta/Desktop/Code/Mob411/Pokemon-Trivia/poke/assets/mew.png')}style={styles.imageLeft}  />
         <Text style={styles.leaderboardText}>Leaderboard</Text>
-        <Image source={require('/Users/alexanderzavaleta/Desktop/Code/Mob411/Pokemon-Trivia/poke/assets/mew.png')} />
+        <Image source={require('/Users/alexanderzavaleta/Desktop/Code/Mob411/Pokemon-Trivia/poke/assets/mew.png')} style={styles.imageRight} />
       </View>
       <Text>{question.text}</Text>
       <Button title="Fire" onPress={() => handleAnswer('fire')} />
       <Button title="Water" onPress={() => handleAnswer('water')} />
       <Button title="Grass" onPress={() => handleAnswer('grass')} />
-      <View style={{ backgroundColor: '#yourBottomColor', height: 50, alignSelf: 'stretch' }}></View>
     </View>
   );
 };
@@ -70,19 +69,9 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
     marginHorizontal: 8,
   },
-  image: {
-    width: 300,
-    height: 300,
-    resizeMode: 'contain',
-  }, 
-  imagecram: {
-    width: 200,
-    height: 200,
-    resizeMode: 'contain',
-  },
   imageRight: {
-    width: 100,
-    height: 100,
+    width: 50,
+    height: 50,
     resizeMode: 'contain',
     marginHorizontal: 8,
   },});

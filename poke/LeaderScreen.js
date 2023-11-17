@@ -30,8 +30,8 @@ const styles = StyleSheet.create({
     padding: 16,
   },
  imageLeft: {
-    width: 50,
-    height: 50,
+    width: 100,
+    height: 100,
     resizeMode: 'contain',
     marginHorizontal: 8,
     transform: [{ scaleX: -1 }],
@@ -41,16 +41,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginHorizontal: 16,
     marginHorizontal: 8,
-  },
-  image: {
-    width: 300,
-    height: 300,
-    resizeMode: 'contain',
-  }, 
-  imagecram: {
-    width: 200,
-    height: 200,
-    resizeMode: 'contain',
   },
   imageRight: {
     width: 100,
