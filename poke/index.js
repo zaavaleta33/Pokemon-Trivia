@@ -5,8 +5,7 @@ import { Button, View, Text, Image, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import axios from 'axios';
-import { RNSScreenStackHeaderConfig } from '@react-native-screens';
-//import { Accelerometer } from 'react-native-sensors';
+//import { RNSScreenStackHeaderConfig } from '@react-native-screens';
 
 const Stack = createNativeStackNavigator();
 
@@ -62,6 +61,37 @@ function HomeScreen({ navigation }) {
   );
 }
 function TriviaScreen() {
+  const [question, setQuestion] = useState({});
+  const [answer, setAnswer] = useState('');
+  const [userScore, setUserScore] = useState('');
+
+  useEffect(() => {
+    fetchQuestion();
+  }, []);
+
+  const fetchQuestion = async () => {
+    try {
+      const response = await axios.get(
+        'https://pokeapi.co/api/v2/pokemon/1/'
+      );
+      const pokemonData = response.data;
+      const questionText = `What is the type of ${pokemonData.name}?`;
+      const correctAnswer = pokemonData.types[0].type.name;
+      setQuestion({ text: questionText, correctAnswer });
+    } catch (error) {
+      console.error('Error fetching question:', error);
+    }
+  };
+
+  const handleAnswer = (userAnswer) => {
+ if (userAnswer === question.correctAnswer) {
+      setUserScore(userScore + 1);
+      fetchQuestion(); 
+    } else {
+      navigation.navigate('Leaderboard', { score: userScore });
+    }
+  };
+
   return (
     <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', backgroundColor: '#A1C084', paddingTop: 32 }}>
       <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
@@ -75,6 +105,9 @@ function TriviaScreen() {
           style={styles.imageRight}
         />
       </View>
+      <Text>{question.text}</Text>
+      <Button title="Fire" onPress={() => handleAnswer('fire')} />
+      <Button title="Water" onPress={() => handleAnswer('water')} />
       <View style={{ backgroundColor: '#yourBottomColor', height: 50, alignSelf: 'stretch' }}></View>
     </View>
   );
