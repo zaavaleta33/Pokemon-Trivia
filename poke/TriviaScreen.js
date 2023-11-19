@@ -5,6 +5,7 @@ import axios from 'axios';
 const TriviaScreen = ({ navigation }) => {
   const [question, setQuestion] = useState({});
   const [userScore, setUserScore] = useState(0);
+  const [wrongAnswer, setWrongAnswer] = useState(false);
 
   const types = [
     'Normal', 'Fire', 'Water', 'Electric',
@@ -34,12 +35,20 @@ const TriviaScreen = ({ navigation }) => {
   const handleAnswer = (userAnswer) => {
     if (userAnswer === question.correctAnswer) {
       setUserScore(userScore + 1);
+    } else {
+      setWrongAnswer(true); 
+      navigation.navigate('LeaderScreen');
     }
     fetchQuestion();
   };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
+      {wrongAnswer && (
+        <View style={styles.leaderboardContainer}>
+          {/* Leaderboard UI goes here */}
+        </View>
+      )}
       <View style={styles.leaderboardContainer}>
         <Image source={require('/Users/alexanderzavaleta/Desktop/Code/Mob411/Pokemon-Trivia/poke/assets/mew.png')} style={styles.imageLeft} />
         <Text style={styles.leaderboardText}>Leaderboard</Text>
