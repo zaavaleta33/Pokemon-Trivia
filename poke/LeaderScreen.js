@@ -1,8 +1,13 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, FlatList } from 'react-native';
+import { View, Text, Image, StyleSheet, FlatList, Button, TouchableOpacity} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 const LeaderScreen = ({ route }) => {
   const { userName, userScore } = route.params;
+  const navigation = useNavigation();
+  const goToHomeScreen = () => {
+    navigation.navigate('HomeScreen'); 
+  };
 
   return (
     <View style={styles.container}>
@@ -29,7 +34,11 @@ const LeaderScreen = ({ route }) => {
           </View>
         )}
 />
-
+      <TouchableOpacity onPress={goToHomeScreen}>
+        <View style={styles.buttonContainer}>
+          <Text style={styles.buttonText}>Go to Home Screen</Text>
+        </View>
+      </TouchableOpacity>
       </View>
   );
 };
@@ -67,7 +76,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 8,
   },
   userContainer: {
-    backgroundColor: '#yourTopColor', // Replace with your desired color
+    backgroundColor: '#yourTopColor', 
     height: 50,
     alignSelf: 'stretch',
     marginVertical: 8,
@@ -77,10 +86,10 @@ const styles = StyleSheet.create({
   },
   userText: {
     fontSize: 18,
-    color: 'white', // Replace with your desired text color
+    color: 'white', 
   },
   nameContainer: {
-    backgroundColor: '#yourBottomColor', // Replace with your desired color
+    backgroundColor: '#yourBottomColor', 
     height: 50,
     alignSelf: 'stretch',
     marginVertical: 8,
@@ -90,7 +99,20 @@ const styles = StyleSheet.create({
   },
   nameText: {
     fontSize: 18,
-    color: 'white', // Replace with your desired text color
+    color: 'white', 
+  },
+  buttonContainer: {
+    backgroundColor: '#yourButtonColor', 
+    height: 50,
+    alignSelf: 'stretch',
+    marginVertical: 8,
+    paddingHorizontal: 16,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  buttonText: {
+    fontSize: 18,
+    color: 'white', 
   },
 });
 
