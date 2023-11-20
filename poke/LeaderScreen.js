@@ -1,23 +1,51 @@
-import React from 'react';
-import { View, Text, Image, StyleSheet, FlatList, Button, TouchableOpacity} from 'react-native';
+import React , { useState, useEffect } from 'react';
+import { View, Text, Image, StyleSheet, FlatList, Button, TouchableOpacity, AsyncStorage} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 const LeaderScreen = ({ route }) => {
-  const { userName, userScore } = route.params;
+  const { userName = 'DefaultUser', userScore } = route.params || {};
   const navigation = useNavigation();
+  const [leaderboardData, setLeaderboardData] = useState([]);
   const goToHomeScreen = () => {
     navigation.navigate('HomeScreen'); 
   };
 
+  const saveScore = async () => {
+    try {
+      // Retrieve existing scores from AsyncStorage
+      const existingScores = await AsyncStorage.getItem('scores');
+      const scoresArray = existingScores ? JSON.parse(existingScores) : [];
+
+      // Find the user's existing entry in the scores array
+      const userEntryIndex = scoresArray.findIndex(entry => entry.userName === userName);
+
+      if (userEntryIndex !== -1) {
+        // If the user already exists, append the new score to the existing scores array
+        scoresArray[userEntryIndex].userScores.push(userScores);
+      } else {
+        // If the user is playing for the first time, create a new entry
+        scoresArray.push({ userName, userScores: [userScores] });
+      }
+
+      // Save the updated scores array back to AsyncStorage
+      await AsyncStorage.setItem('scores', JSON.stringify(scoresArray));
+
+      // Update the leaderboard data state
+      setLeaderboardData(scoresArray);
+    } catch (error) {
+      console.error('Error saving score:', error);
+    }
+  }; 
+
   return (
-    <View style={styles.container}>
+   <View style={styles.container}>
       <View style={styles.headerContainer}>
-        <Image
+         <Image
           source={require('/Users/alexanderzavaleta/Desktop/Code/Mob411/Pokemon-Trivia/poke/assets/Poke-vin.png')}
-          style={styles.imageLeft}
+          style={styles.imageRight}
         />
-        <Text style={styles.leaderboardText}>Leaderboard</Text>
-        <Image
+         <Text style={styles.leaderboardText}>Leaderboard</Text>
+         <Image
           source={require('/Users/alexanderzavaleta/Desktop/Code/Mob411/Pokemon-Trivia/poke/assets/Poke-vin.png')}
           style={styles.imageRight}
         />
@@ -26,20 +54,25 @@ const LeaderScreen = ({ route }) => {
         <Text style={styles.userText}>{userName}'s Score: {userScore}</Text>
       </View>
       
+      {/* Display the leaderboard using FlatList */}
       <FlatList
-        data={userName}
-        keyExtractor={(userScore, index) => index.toString()}
-        renderItem={({ item }) => (
-          <View style={styles.nameContainer}>
-          </View>
-        )}
+  data={leaderboardData}
+  keyExtractor={(item, index) => index.toString()}
+  renderItem={({ item }) => (
+    <View style={styles.nameContainer}>
+      {/* Use item.userScores instead of item.userScore */}
+      <Text style={styles.nameText}>{item.userName}: {item.userScores.join(', ')}</Text>
+    </View>
+  )}
 />
+
+
       <TouchableOpacity onPress={goToHomeScreen}>
         <View style={styles.buttonContainer}>
           <Text style={styles.buttonText}>Go to Home Screen</Text>
         </View>
       </TouchableOpacity>
-      </View>
+    </View>
   );
 };
 
