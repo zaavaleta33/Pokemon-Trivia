@@ -37,7 +37,7 @@ const TriviaScreen = ({ navigation }) => {
       setUserScore(userScore + 1);
     } else {
       setWrongAnswer(true); 
-      navigation.navigate('LeaderScreen');
+      navigation.navigate('NameInputScreen', { userScore });
     }
     fetchQuestion();
   };

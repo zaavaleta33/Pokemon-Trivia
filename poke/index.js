@@ -2,17 +2,17 @@ import { AppRegistry } from 'react-native';
 import React, {useState, useEffect } from 'react';
 import { Button, View, Text, Image, StyleSheet } from 'react-native';
 
+
 import HomeScreen from './HomeScreen';
 import TriviaScreen from './TriviaScreen';
 import SuprizeScreen from './SuprizeScreen';
 import LeaderScreen from './LeaderScreen';
 import AboutScreen from './AboutScreen';
-
+import NameInputScreen from './NameInputScreen';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import axios from 'axios';
-//import { RNSScreenStackHeaderConfig } from '@react-native-screens';
 
 const Stack = createNativeStackNavigator();
 
@@ -21,7 +21,7 @@ function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="HomeScreen"screenOptions={{
     headerStyle: {
-      backgroundColor: '#659157', // Set the background color here
+      backgroundColor: '#659157', 
     },
   }}>
         <Stack.Screen name="HomeScreen" component={HomeScreen} />
@@ -29,6 +29,7 @@ function App() {
         <Stack.Screen name="LeaderScreen" component={LeaderScreen} />
         <Stack.Screen name="SuprizeScreen" component={SuprizeScreen} />
         <Stack.Screen name="TriviaScreen" component={TriviaScreen} />
+        <Stack.Screen name="NameInputScreen" component={NameInputScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
