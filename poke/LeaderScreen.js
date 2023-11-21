@@ -21,10 +21,10 @@ const LeaderScreen = ({ route }) => {
 
       if (userEntryIndex !== -1) {
         // If the user already exists, append the new score to the existing scores array
-        scoresArray[userEntryIndex].userScores.push(userScores);
+        scoresArray[userEntryIndex].userScores.push(userScore);
       } else {
         // If the user is playing for the first time, create a new entry
-        scoresArray.push({ userName, userScores: [userScores] });
+        scoresArray.push({ userName, userScores: [userScore] });
       }
 
       // Save the updated scores array back to AsyncStorage
@@ -60,7 +60,6 @@ const LeaderScreen = ({ route }) => {
   keyExtractor={(item, index) => index.toString()}
   renderItem={({ item }) => (
     <View style={styles.nameContainer}>
-      {/* Use item.userScores instead of item.userScore */}
       <Text style={styles.nameText}>{item.userName}: {item.userScores.join(', ')}</Text>
     </View>
   )}

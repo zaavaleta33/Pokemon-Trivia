@@ -1,10 +1,21 @@
-import React, { useState } from 'react';
-import { View, Button, Text, Image, StyleSheet } from 'react-native';
+import React, { useState,useEffect } from 'react';
+import { View, Button, Text, Image, StyleSheet, SafeAreaView } from 'react-native';
 import axios from 'axios';
+import RNShake from 'react-native-shake';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 
 const SuprizeScreen = () => {
   const [pokemonData, setPokemonData] = useState(null);
+  
+     useEffect(() => {
+        RNShake.addListener(() => {
+          getRandomPokemon();
+        });
 
+        return () => {
+          RNShake.removeListener();
+        };
+      }, []);
 
 const getRandomPokemon = () => {
     // Array of Pokemon names for random selection
@@ -57,8 +68,7 @@ const getRandomPokemon = () => {
   };
 
   return (
-   <View style={{ flex: 1, justifyContent: 'flex-start', alignItems: 'center', backgroundColor:'#A1C084' }}>
-      <Button title="Press for suprize" onPress={getRandomPokemon} />
+      <View style={{ flex: 1, justifyContent: 'flex-start', alignItems: 'center', backgroundColor: '#A1C084' }}>
       {pokemonData && (
         <View>
           <Text>Pokemon Name: {pokemonData.name}</Text>
@@ -69,12 +79,11 @@ const getRandomPokemon = () => {
             style={styles.image}
             source={{ uri: pokemonData.sprites.front_default }}
           />
-          {/* Add more details as needed */}
         </View>
       )}
+      <Text> Shake for suprize </Text>
     </View>
   );
-
 };
 
 const styles = StyleSheet.create({
