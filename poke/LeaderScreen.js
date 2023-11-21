@@ -1,6 +1,7 @@
-import React , { useState, useEffect } from 'react';
-import { View, Text, Image, StyleSheet, FlatList, Button, TouchableOpacity, AsyncStorage} from 'react-native';
+import React , { useState, useEffect} from 'react';
+import { View, Text, Image, StyleSheet, FlatList, TouchableOpacity, AsyncStorage} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+//import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const LeaderScreen = ({ route }) => {
   const { userName = 'DefaultUser', userScore } = route.params || {};
@@ -10,32 +11,36 @@ const LeaderScreen = ({ route }) => {
     navigation.navigate('HomeScreen'); 
   };
 
+  /*useEffect(() => {
+  saveScore();
+  }, [userScore]);*/
+
   const saveScore = async () => {
-    try {
-      // Retrieve existing scores from AsyncStorage
-      const existingScores = await AsyncStorage.getItem('scores');
-      const scoresArray = existingScores ? JSON.parse(existingScores) : [];
+  try {
+    const existingScores = await AsyncStorage.getItem('scores');
+    const scoresArray = existingScores ? JSON.parse(existingScores) : [];
 
-      // Find the user's existing entry in the scores array
-      const userEntryIndex = scoresArray.findIndex(entry => entry.userName === userName);
+    const userEntryIndex = scoresArray.findIndex((entry) => entry.userName === userName);
 
-      if (userEntryIndex !== -1) {
-        // If the user already exists, append the new score to the existing scores array
-        scoresArray[userEntryIndex].userScores.push(userScore);
-      } else {
-        // If the user is playing for the first time, create a new entry
-        scoresArray.push({ userName, userScores: [userScore] });
+    if (userEntryIndex !== -1) {
+      const currentHighestScore = Math.max(...scoresArray[userEntryIndex].userScores);
+
+      if (userScore > currentHighestScore) {
+        scoresArray[userEntryIndex].userScores = [userScore];
       }
-
-      // Save the updated scores array back to AsyncStorage
-      await AsyncStorage.setItem('scores', JSON.stringify(scoresArray));
-
-      // Update the leaderboard data state
-      setLeaderboardData(scoresArray);
-    } catch (error) {
-      console.error('Error saving score:', error);
+    } else {
+      scoresArray.push({ userName, userScores: [userScore] });
     }
-  }; 
+
+    await AsyncStorage.setItem('scores', JSON.stringify(scoresArray));
+
+    setLeaderboardData(scoresArray);
+  } catch (error) {
+    console.error('Error saving score:', error);
+  }
+};
+
+   
 
   return (
    <View style={styles.container}>
