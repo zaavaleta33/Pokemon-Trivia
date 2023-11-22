@@ -15,7 +15,7 @@ const LeaderScreen = ({ route }) => {
   saveScore();
   }, [userScore]);
 
-  const saveScore = async () => {
+const saveScore = async () => {
   try {
     const existingScores = await AsyncStorage.getItem('scores');
     const scoresArray = existingScores ? JSON.parse(existingScores) : [];
@@ -32,6 +32,9 @@ const LeaderScreen = ({ route }) => {
       scoresArray.push({ userName, userScores: [userScore] });
     }
 
+    // Sort the array in descending order based on the highest score
+    scoresArray.sort((a, b) => Math.max(...b.userScores) - Math.max(...a.userScores));
+
     await AsyncStorage.setItem('scores', JSON.stringify(scoresArray));
 
     setLeaderboardData(scoresArray);
@@ -39,8 +42,6 @@ const LeaderScreen = ({ route }) => {
     console.error('Error saving score:', error);
   }
 };
-
-   
 
   return (
    <View style={styles.container}>
@@ -113,7 +114,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 8,
   },
   userContainer: {
-    backgroundColor: '#yourTopColor', 
+    backgroundColor: '#A1C084', 
     height: 50,
     alignSelf: 'stretch',
     marginVertical: 8,
@@ -126,7 +127,7 @@ const styles = StyleSheet.create({
     color: 'white', 
   },
   nameContainer: {
-    backgroundColor: '#yourBottomColor', 
+    backgroundColor: '#A1C084', 
     height: 50,
     alignSelf: 'stretch',
     marginVertical: 8,
@@ -139,7 +140,7 @@ const styles = StyleSheet.create({
     color: 'white', 
   },
   buttonContainer: {
-    backgroundColor: '#yourButtonColor', 
+    backgroundColor: '#A1C084', 
     height: 50,
     alignSelf: 'stretch',
     marginVertical: 8,
