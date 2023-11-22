@@ -25,7 +25,7 @@ const HomeScreen = ({ navigation }) => {
   }, []);
 
   return (
-    <View style={{ flex: 1, justifyContent: 'flex-start', alignItems: 'center', backgroundColor: '#A1C084' }}>
+    <View style={{ flex: 1, justifyContent: 'flex-start', alignItems: 'center', backgroundColor: '#F7BFB4' }}>
       <Button
         title="TriviaBoard"
         onPress={() => navigation.navigate('TriviaScreen')}

@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    backgroundColor: '#A1C084',
+    backgroundColor: '#F7BFB4',
     paddingTop: 32,
   },
   headerContainer: {
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 8,
   },
   userContainer: {
-    backgroundColor: '#A1C084', 
+    backgroundColor: '#F7BFB4', 
     height: 50,
     alignSelf: 'stretch',
     marginVertical: 8,
@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
     color: 'white', 
   },
   nameContainer: {
-    backgroundColor: '#A1C084', 
+    backgroundColor: '#F7BFB4', 
     height: 50,
     alignSelf: 'stretch',
     marginVertical: 8,
@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
     color: 'white', 
   },
   buttonContainer: {
-    backgroundColor: '#A1C084', 
+    backgroundColor: '#F7BFB4', 
     height: 50,
     alignSelf: 'stretch',
     marginVertical: 8,

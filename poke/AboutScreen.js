@@ -3,7 +3,7 @@ import { View, Text, Image, StyleSheet } from 'react-native';
 
 const AboutScreen = () => {
     return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#659157'  }}>
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#DB93B0'  }}>
       <Text>Hello, my name is</Text>
       <Text>Alexander Zavaleta</Text>
       <Image
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#A1C084', 
+    backgroundColor: '#F7BFB4', 
     padding: 16,
   },
  imageLeft: {

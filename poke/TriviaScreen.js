@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    backgroundColor: '#A1C084',
+    backgroundColor: '#F7BFB4',
     paddingTop: 32,
   },
   leaderboardContainer: {

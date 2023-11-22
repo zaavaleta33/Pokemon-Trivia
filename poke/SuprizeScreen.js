@@ -67,7 +67,7 @@ const getRandomPokemon = () => {
   };
 
   return (
-      <View style={{ flex: 1, justifyContent: 'flex-start', alignItems: 'center', backgroundColor: '#A1C084' }}>
+      <View style={{ flex: 1, justifyContent: 'flex-start', alignItems: 'center', backgroundColor: '#F7BFB4' }}>
       {pokemonData && (
         <View>
           <Text>Pokemon Name: {pokemonData.name}</Text>
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#A1C084', 
+    backgroundColor: '#F7BFB4', 
     padding: 16,
   },
  imageLeft: {

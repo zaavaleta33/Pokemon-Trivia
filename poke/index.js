@@ -21,7 +21,7 @@ function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="HomeScreen"screenOptions={{
     headerStyle: {
-      backgroundColor: '#659157', 
+      backgroundColor: '#DB93B0', 
     },
   }}>
         <Stack.Screen name="HomeScreen" component={HomeScreen} />
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#A1C084', 
+    backgroundColor: '#F7BFB4', 
     padding: 16,
   },
  imageLeft: {
