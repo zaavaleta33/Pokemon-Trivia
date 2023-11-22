@@ -1,7 +1,7 @@
 import React , { useState, useEffect} from 'react';
-import { View, Text, Image, StyleSheet, FlatList, TouchableOpacity, AsyncStorage} from 'react-native';
+import { View, Text, Image, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-//import AsyncStorage from '@react-native-async-storage/async-storage'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LeaderScreen = ({ route }) => {
   const { userName = 'DefaultUser', userScore } = route.params || {};
@@ -11,9 +11,9 @@ const LeaderScreen = ({ route }) => {
     navigation.navigate('HomeScreen'); 
   };
 
-  /*useEffect(() => {
+  useEffect(() => {
   saveScore();
-  }, [userScore]);*/
+  }, [userScore]);
 
   const saveScore = async () => {
   try {
