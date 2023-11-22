@@ -1,10 +1,10 @@
 import React , { useState, useEffect} from 'react';
-import { View, Text, Image, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, Image, StyleSheet, FlatList, TouchableOpacity, ScrollView  } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LeaderScreen = ({ route }) => {
-  const { userName = 'DefaultUser', userScore } = route.params || {};
+  const { userName, userScore } = route.params || {};
   const navigation = useNavigation();
   const [leaderboardData, setLeaderboardData] = useState([]);
   const goToHomeScreen = () => {
@@ -12,8 +12,35 @@ const LeaderScreen = ({ route }) => {
   };
 
   useEffect(() => {
+  //clearAsyncStorage()
   saveScore();
+  loadScores();
   }, [userScore]);
+
+  const clearAsyncStorage = async () => {
+  try {
+    await AsyncStorage.clear();
+    console.log('AsyncStorage cleared successfully.');
+  } catch (error) {
+    console.error('Error clearing AsyncStorage:', error);
+  }
+};
+
+
+  const loadScores = async () => {
+  try {
+    const existingScores = await AsyncStorage.getItem('scores');
+    let scoresArray = existingScores ? JSON.parse(existingScores) : [];
+
+    scoresArray = scoresArray.filter((entry) => Math.max(...entry.userScores) > 0);
+
+    scoresArray.sort((a, b) => Math.max(...b.userScores) - Math.max(...a.userScores));
+
+    setLeaderboardData(scoresArray);
+  } catch (error) {
+    console.error('Error loading scores:', error);
+  }
+};
 
 const saveScore = async () => {
   try {
@@ -21,18 +48,18 @@ const saveScore = async () => {
     const scoresArray = existingScores ? JSON.parse(existingScores) : [];
 
     const userEntryIndex = scoresArray.findIndex((entry) => entry.userName === userName);
+    if(userScore > 0 || userName == "DefaultUser"){
+      if (userEntryIndex !== -1) {
+        const currentHighestScore = Math.max(...scoresArray[userEntryIndex].userScores);
 
-    if (userEntryIndex !== -1) {
-      const currentHighestScore = Math.max(...scoresArray[userEntryIndex].userScores);
-
-      if (userScore > currentHighestScore) {
-        scoresArray[userEntryIndex].userScores = [userScore];
+        if (userScore > currentHighestScore) {
+          scoresArray[userEntryIndex].userScores = [userScore];
+        }
+      } else {
+        scoresArray.push({ userName, userScores: [userScore] });
       }
-    } else {
-      scoresArray.push({ userName, userScores: [userScore] });
     }
 
-    // Sort the array in descending order based on the highest score
     scoresArray.sort((a, b) => Math.max(...b.userScores) - Math.max(...a.userScores));
 
     await AsyncStorage.setItem('scores', JSON.stringify(scoresArray));
@@ -45,6 +72,7 @@ const saveScore = async () => {
 
   return (
    <View style={styles.container}>
+      <ScrollView style={{ flex: 1, width: '100%' }}>
       <View style={styles.headerContainer}>
          <Image
           source={require('/Users/alexanderzavaleta/Desktop/Code/Mob411/Pokemon-Trivia/poke/assets/Poke-vin.png')}
@@ -60,7 +88,7 @@ const saveScore = async () => {
         <Text style={styles.userText}>{userName}'s Score: {userScore}</Text>
       </View>
       
-      {/* Display the leaderboard using FlatList */}
+      {}
       <FlatList
   data={leaderboardData}
   keyExtractor={(item, index) => index.toString()}
@@ -70,13 +98,12 @@ const saveScore = async () => {
     </View>
   )}
 />
-
-
       <TouchableOpacity onPress={goToHomeScreen}>
         <View style={styles.buttonContainer}>
           <Text style={styles.buttonText}>Go to Home Screen</Text>
         </View>
       </TouchableOpacity>
+      </ScrollView>
     </View>
   );
 };

@@ -7,7 +7,6 @@ const NameInputScreen = ({ route,navigation }) => {
 
   const handleContinue = () => {
     if (userName.trim() === '') {
-      // Handle empty name (optional)
       alert('Please enter your name.');
     } else {
       navigation.navigate('LeaderScreen', { userName, userScore });

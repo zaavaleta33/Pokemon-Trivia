@@ -46,7 +46,6 @@ const TriviaScreen = ({ navigation }) => {
     <ScrollView contentContainerStyle={styles.container}>
       {wrongAnswer && (
         <View style={styles.leaderboardContainer}>
-          {/* Leaderboard UI goes here */}
         </View>
       )}
       <View style={styles.leaderboardContainer}>

@@ -18,7 +18,6 @@ const SuprizeScreen = () => {
       }, []);
 
 const getRandomPokemon = () => {
-    // Array of Pokemon names for random selection
    const pokemonNames = [
   'bulbasaur', 'ivysaur', 'venusaur', 'charmander', 'charmeleon', 'charizard',
   'squirtle', 'wartortle', 'blastoise', 'caterpie', 'metapod', 'butterfree',
@@ -81,7 +80,7 @@ const getRandomPokemon = () => {
           />
         </View>
       )}
-      <Text> Shake for suprize </Text>
+      <Text> Shake for Suprize </Text>
     </View>
   );
 };
